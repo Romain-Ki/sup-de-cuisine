@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-image: url("JSON-recipes/back-ground-header.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+    height: 500px;  
+    
+    /* Centrage du texte dans le header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.search-form input {
+    width: 700px;
+}
+
+.filtre {
+    display: flex;
+    justify-content: space-between; /* Espace entre chaque élément */
+    align-items: center; /* Aligner les éléments verticalement au centre */
+    gap: 20px; /* Espacement entre les éléments */
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
