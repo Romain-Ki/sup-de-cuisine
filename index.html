@@ -8,11 +8,11 @@
     <title>Sup de Cuisine</title>
 </head>
 <body>
-    <header>
+    <header> 
         <div>
             <h1 class="title">Cherchez parmi plus de 1500 recettes du quotidien, simple et généreuse</h1>
             <form class="search-form" action="#" method="GET">
-                <input type="search" name="query" placeholder="Rechercher une recette, un ingrédient, ..." class="search-input">
+                <input type="search" name="query" placeholder="Rechercher une recette, un ingrédient, ..." class="search-input" id="searchInput">
                 <button type="submit" class="search-button">🔍</button>
             </form>
         </div>
@@ -46,7 +46,7 @@
             </select>
         </form>
 
-        <p>50 recettes</p>
+        <p class="number-recette" id="nombre-recettes"></p>
     </div>
 
     <div class="filtre-select">
@@ -61,48 +61,15 @@
         </div>
     </div>
 
-    <div class="recette-panel">
+    <div class="recette-panel" id="recettePanel">
 
-        <div class="recette">
-            <div class="image-recette">
-                <img src="JSON-recipes/Recette01.jpg">
-            </div>
-            <div class="description-recette">
-                <h2 class="nom-recette">Limonade de coco</h2>
-                <p class="recette-nom">Recette</p>
-                <p class="preparation">vsfyusdvfyuvsdf</p>
-                <p class="ingredient">Ingrédients</p>
-                <p class="description-ingredient">seufisvfvsef</p>
-            </div>
+       
+
         </div>
 
-        <div class="recette">
-            <div class="image-recette">
-                <img src="JSON-recipes/Recette01.jpg">
-            </div>
-            <div class="description-recette">
-                <h2 class="nom-recette">Limonade de coco</h2>
-                <p class="recette-nom">Recette</p>
-                <p class="preparation">vsfyusdvfyuvsdf</p>
-                <p class="ingredient">Ingrédients</p>
-                <p class="description-ingredient">seufisvfvsef</p>
-            </div>
-        </div>
-
-        <div class="recette">
-            <div class="image-recette">
-                <img src="JSON-recipes/Recette01.jpg">
-            </div>
-            <div class="description-recette">
-                <h2 class="nom-recette">Limonade de coco</h2>
-                <p class="recette-nom">Recette</p>
-                <p class="preparation">vsfyusdvfyuvsdf</p>
-                <p class="ingredient">Ingrédients</p>
-                <p class="description-ingredient">seufisvfvsef</p>
-            </div>
-        </div>
+       
 
     </div>
-    
+     <script src="script.js"></script>
 </body>
 </html>

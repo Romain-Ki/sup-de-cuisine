@@ -148,18 +148,21 @@ header::before {
     margin-top: 20px;
     margin-right: 40px;
     margin-bottom: 20px;
+    width: 100%; /* Prend toute la largeur disponible, identique au header */
     display: flex;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante */
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center;
 
 }
 
 .recette {
-
-    
     margin-right: 40px;
     margin-bottom: 40px;
 }
 
 .recette div {
+    
     width: 350px;
     border: 2px solid black;
     overflow: hidden;
@@ -182,5 +185,10 @@ header::before {
 
 .recette-nom, .ingredient {
     color: rgb(153, 153, 153);
+    font-size: 24px;
+}
+
+.number-recette {
+
     font-size: 24px;
 }
