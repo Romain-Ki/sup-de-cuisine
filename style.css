@@ -116,31 +116,48 @@ header::before {
     font-size: 16px;
 }
 
+/* Conteneur des filtres sélectionnés */
 .filtre-select {
-    display: flex
-}
-
-.le-filtre {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    background-color: rgb(255, 217, 102);
-    width: 150px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 5px;
-    margin-left: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    flex-wrap: wrap; /* Permet de passer à la ligne suivante si nécessaire */
 }
 
-.le-filtre button {
 
-    background-color:rgb(255, 217, 102);
+/* Style pour chaque filtre */
+.filter-item {
+    display: flex;
+    align-items: center; /* Centrer le texte et le bouton */
+    padding: 5px 10px;
+    background-color: rgb(255, 200, 50);
+    border-radius: 5px;
+    font-size: 28px;
+    margin-right: 10px; /* Espacement entre les filtres */
+    margin-left: 40px;
+}
+
+/* Style pour les boutons de suppression */
+.remove-button {
+    background-color: rgb(255, 200, 50);
     border: none;
-    
+    color: white;
+    font-weight: bold;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 5px;
+}
+
+/* Changer la couleur du bouton au survol */
+.remove-button:hover {
+    background-color: rgb(255, 160, 50);
+}
+
+/* Améliorations pour les options de filtre */
+.dropdown {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .recette-panel {
