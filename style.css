@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Baloo 2', sans-serif;
+
 }
 
 header {
@@ -160,52 +162,121 @@ header::before {
     font-size: 14px;
 }
 
+/* Style du conteneur des cartes de recettes */
 .recette-panel {
     margin-left: 40px;
     margin-top: 20px;
     margin-right: 40px;
     margin-bottom: 20px;
-    width: 100%; /* Prend toute la largeur disponible, identique au header */
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante */
     justify-content: center; /* Centre les éléments horizontalement */
-    align-items: center;
-
+    align-items: flex-start; /* Aligne les éléments en haut */
+    gap: 20px; /* Espace entre les cartes */
 }
 
+/* Style des cartes de recettes */
 .recette {
-    margin-right: 40px;
-    margin-bottom: 40px;
+    width: 350px;          /* Largeur fixe pour chaque carte */
+    height: 800px;         /* Hauteur fixe pour chaque carte (ajustable selon le contenu) */
+    background-color: #fff; /* Couleur de fond des cartes */
+    border: 2px solid black; /* Bordure de la carte */
+    border-radius: 10px;    /* Coins arrondis */
+    overflow: hidden;       /* Cache les éléments qui débordent */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour l'effet de carte */
+    display: flex;
+    flex-direction: column; /* Alignement vertical des éléments */
+    transition: transform 0.3s ease; /* Effet d'agrandissement au survol */
 }
 
-.recette div {
-    
-    width: 350px;
-    border: 2px solid black;
-    overflow: hidden;
+/* Effet d'agrandissement lors du survol */
+.recette:hover {
+    transform: translateY(-10px); /* Légère élévation au survol */
 }
 
+/* Contenu de l'image dans la carte */
 .image-recette {
-
-    height:200px ;
-    width: 350px;
+    width: 100%;         /* L'image prend toute la largeur de la div */
+    height: 200px;       /* Hauteur fixe pour l'image */
+        
 }
 
 .image-recette img {
-    width: 100%;         /* Prend toute la largeur de la div */
-    height: 100%;      /* Prend toute la hauteur de la div */
+    width: 100%;         /* L'image prend toute la largeur de la div */
+    height: 100%;        /* L'image prend toute la hauteur de la div */
+    object-fit: cover;   /* L'image remplira l'espace sans être déformée */
 }
 
-.description-recette > * {
-    margin: 20px 20px; /* marge haut et bas : 20px, gauche et droite : 10px */
+/* Style de la description de la recette */
+.description-recette {
+    padding: 15px;
+
+    font-size: 14px;
 }
 
+/* Limiter la longueur des titres et descriptions */
+.nom-recette {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* Style des sections sous les titres */
 .recette-nom, .ingredient {
     color: rgb(153, 153, 153);
-    font-size: 24px;
+    font-size: 24px; /* Taille de police plus petite pour les catégories */
+    margin: 5px 0;
 }
+
+/* Style de la description des ingrédients */
+.description-ingredient {
+    font-size: 14px;
+    color: #555;
+    padding: 0 20px;
+    margin: 10px 0;
+    list-style: none; /* Supprime les puces */
+    padding-left: 0; /* Enlève le retrait gauche */
+    width: 100%; /* La liste prend toute la largeur disponible */
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Style pour chaque élément de la liste d'ingrédients */
+.description-ingredient li {
+    margin-bottom: 10px; /* Espace entre les lignes */
+}
+
+/* Rendre le nom de l'ingrédient en gras */
+.description-ingredient strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Espaces de la description */
+.description-recette > * {
+    margin: 10px 20px; /* Marge de 10px en haut et bas, 20px à gauche et droite */
+    
+}
+
+.preparation {
+    font-size: 14px;
+    color: #555;
+    padding: 0 20px;
+    margin: 10px 0;
+    max-height: 150px; /* Limite la hauteur de la description de la préparation (ajuste selon tes besoins) */
+    overflow-y: auto; /* Si le contenu dépasse, affiche une barre de défilement verticale */
+}
+
 
 .number-recette {
 
     font-size: 24px;
+}
+
+.no-result {
+
+    font-size: 24px;
+    text-align: center;
 }
