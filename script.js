@@ -1,5 +1,3 @@
-const jsonFilePath = 'https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json';  // URL du fichier JSON
-
 // Variables globales
 let globalRecipes = [];  // Stocker toutes les recettes pour le filtrage
 let filters = { ingredients: [], appliances: [], ustensils: [] };  // Garde la trace des filtres actifs
@@ -24,27 +22,26 @@ function displayRecipes(recipes) {
         const recetteDiv = document.createElement('div');
         recetteDiv.classList.add('recette');
     
-    // Créer une liste d'ingrédients formatée
-    const ingredientsList = recipe.ingredients
-        .map(ing => `<li><strong>${ing.ingredient}</strong> : ${ing.quantity || ''} ${ing.unit || ''}</li>`)
-        .join('');
+        // Créer une liste d'ingrédients formatée
+        const ingredientsList = recipe.ingredients
+            .map(ing => `<li><strong>${ing.ingredient}</strong> : ${ing.quantity || ''} ${ing.unit || ''}</li>`)
+            .join('');
 
-    recetteDiv.innerHTML = `
-        <div class="image-recette">
-            <img src="JSON-recipes/${recipe.image}" alt="${recipe.name}">
-        </div>
-        <div class="description-recette">
-            <h2 class="nom-recette">${recipe.name}</h2>
-            <p class="recette-nom">Recette</p>
-            <p class="preparation">${recipe.description}</p>
-            <p class="ingredient">Ingrédients</p>
-            <ul class="description-ingredient">${ingredientsList}</ul> <!-- Utilisation de <ul> et <li> pour la liste -->
-        </div>
-    `;
+        recetteDiv.innerHTML = `
+            <div class="image-recette">
+                <img src="JSON-recipes/${recipe.image}" alt="${recipe.name}">
+            </div>
+            <div class="description-recette">
+                <h2 class="nom-recette">${recipe.name}</h2>
+                <p class="recette-nom">Recette</p>
+                <p class="preparation">${recipe.description}</p>
+                <p class="ingredient">Ingrédients</p>
+                <ul class="description-ingredient">${ingredientsList}</ul> <!-- Utilisation de <ul> et <li> pour la liste -->
+            </div>
+        `;
     
         document.getElementById('recettePanel').appendChild(recetteDiv);
     });
-    
 
     // Afficher le nombre de recettes
     const numberOfRecipes = recettePanel.getElementsByClassName('recette').length;
@@ -215,7 +212,7 @@ function setupSearch() {
 // Fonction principale pour charger les données et configurer les filtres
 async function loadRecipes() {
     try {
-        const response = await fetch(jsonFilePath);
+        const response = await fetch('https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json');
         globalRecipes = await response.json(); // Charger les recettes dans une variable globale
 
         displayRecipes(globalRecipes);      // Affiche toutes les recettes au départ
@@ -231,3 +228,10 @@ async function loadRecipes() {
 
 // Charger les recettes lorsque la page est prête
 document.addEventListener('DOMContentLoaded', loadRecipes);
+
+// Exporter les fonctions pour les tests
+module.exports = {
+    displayRecipes,
+    filterRecipes,
+    addTag
+};

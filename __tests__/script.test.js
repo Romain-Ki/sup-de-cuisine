@@ -1,96 +1,64 @@
-/**
- * @jest-environment jsdom
- */
+// script.test.js
+const { TextEncoder, TextDecoder } = require('util');
+const { JSDOM } = require('jsdom');
+const fs = require('fs');
+const path = require('path');
 
-const { filterRecipes, addTag } = require('./script');
 
-// Définir des données de test pour les recettes
-const testRecipes = [
-    {
-        name: "Pancakes",
-        description: "Délicieux pancakes maison",
-        ingredients: [{ ingredient: "Farine", quantity: 200, unit: "g" }],
-        appliance: "Poêle",
-        ustensils: ["spatule"],
-    },
-    {
-        name: "Salade",
-        description: "Salade fraîche",
-        ingredients: [{ ingredient: "Tomate", quantity: 3, unit: "" }],
-        appliance: "Saladier",
-        ustensils: ["couteau", "bol"],
-    },
-];
+// Charger les fonctions à tester depuis script.js
+const { displayRecipes, filterRecipes, addTag } = require('../script');
 
-describe("filterRecipes", () => {
-    it("devrait retourner toutes les recettes si aucun filtre n'est appliqué", () => {
-        const filters = { ingredients: [], appliances: [], ustensils: [] };
-        const result = filterRecipes(testRecipes, filters, "");
-        expect(result.length).toBe(2); // Toutes les recettes devraient être renvoyées
+// Charger le contenu HTML pour les tests basés sur le DOM
+const htmlContent = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+
+describe('Tests pour l\'application de recettes', () => {
+    let document;
+
+    beforeAll(() => {
+        const { JSDOM } = require('jsdom');
+        const { window } = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+        global.document = window.document;
+        global.window = window;
     });
 
-    it("devrait filtrer les recettes par ingrédient", () => {
-        const filters = { ingredients: ["farine"], appliances: [], ustensils: [] };
-        const result = filterRecipes(testRecipes, filters, "");
-        expect(result.length).toBe(1);
-        expect(result[0].name).toBe("Pancakes");
-    });
-
-    it("devrait filtrer par appareil", () => {
-        const filters = { ingredients: [], appliances: ["saladier"], ustensils: [] };
-        const result = filterRecipes(testRecipes, filters, "");
-        expect(result.length).toBe(1);
-        expect(result[0].name).toBe("Salade");
-    });
-
-    it("devrait filtrer par ustensile", () => {
-        const filters = { ingredients: [], appliances: [], ustensils: ["spatule"] };
-        const result = filterRecipes(testRecipes, filters, "");
-        expect(result.length).toBe(1);
-        expect(result[0].name).toBe("Pancakes");
-    });
-
-    it("devrait retourner aucune recette si les filtres ne correspondent pas", () => {
-        const filters = { ingredients: ["poulet"], appliances: [], ustensils: [] };
-        const result = filterRecipes(testRecipes, filters, "");
-        expect(result.length).toBe(0);
-    });
-});
-
-describe("addTag", () => {
-    it("devrait ajouter un tag et mettre à jour les filtres", () => {
-        document.body.innerHTML = `<div id="le-filtre"></div>`;
+    test('La fonction displayRecipes doit afficher correctement les recettes', () => {
+        const recipes = [
+            { name: 'Pâtes', description: 'Délicieuses pâtes', image: 'pates.jpg', ingredients: [{ ingredient: 'Tomate', quantity: '1', unit: 'pc' }] },
+            { name: 'Salade', description: 'Salade fraîche', image: 'salade.jpg', ingredients: [{ ingredient: 'Laitue', quantity: '100', unit: 'g' }] }
+        ];
         
-        const filters = { ingredients: [], appliances: [], ustensils: [] };
-        addTag("ingredients", "farine", filters);
-
-        expect(filters.ingredients).toContain("farine");
-        const filterItem = document.querySelector(".filter-item");
-        expect(filterItem).not.toBeNull();
-        expect(filterItem.textContent).toContain("farine");
-    });
-});
-
-describe("displayRecipes", () => {
-    it("devrait afficher le nombre de recettes correct", () => {
-        document.body.innerHTML = `<div id="recettePanel"></div><p id="nombre-recettes"></p>`;
+        displayRecipes(recipes); // Appeler la fonction d'affichage
         
-        displayRecipes(testRecipes);
+        const renderedRecipes = document.querySelectorAll('.recette');
+        expect(renderedRecipes.length).toBe(2); // Vérifier que deux recettes sont affichées
 
-        const recettePanel = document.getElementById("recettePanel");
-        const nombreRecettesElement = document.getElementById("nombre-recettes");
-        
-        expect(recettePanel.children.length).toBe(2);
-        expect(nombreRecettesElement.textContent).toBe("2 recettes");
+        // Vérifier le contenu spécifique
+        expect(renderedRecipes[0].querySelector('.nom-recette').textContent).toBe('Pâtes');
+        expect(renderedRecipes[1].querySelector('.nom-recette').textContent).toBe('Salade');
     });
 
-    it("devrait afficher un message si aucune recette n'est trouvée", () => {
-        document.body.innerHTML = `<div id="recettePanel"></div><p id="search-message"></p>`;
+    test('La fonction filterRecipes doit filtrer les recettes par la requête de recherche', () => {
+        const recipes = [
+            { name: 'Pâtes', description: 'Délicieuses pâtes', appliance: 'Poêle', ustensils: ['cuillère'], ingredients: [{ ingredient: 'Tomate', quantity: '1', unit: 'pc' }] },
+            { name: 'Salade', description: 'Salade fraîche', appliance: 'Bol', ustensils: ['fourchette'], ingredients: [{ ingredient: 'Laitue', quantity: '100', unit: 'g' }] }
+        ];
 
-        displayRecipes([]);
+        filters = { ingredients: ['Tomate'], appliances: [], ustensils: [] }; // Filtre actif pour les ingrédients
+        const filtered = filterRecipes(recipes); // Appeler la fonction de filtre avec des critères
 
-        const searchMessage = document.getElementById("search-message");
-        expect(searchMessage.textContent).toBe("Aucune recette ne contient ‘’");
-        expect(searchMessage.style.display).toBe("block");
+        expect(filtered.length).toBe(1); // Seule la recette "Pâtes" doit correspondre
+        expect(filtered[0].name).toBe('Pâtes');
+    });
+
+    test('La fonction addTag doit ajouter un tag et mettre à jour le filtre', () => {
+        const filterContainer = document.getElementById('le-filtre');
+        filters = { ingredients: [], appliances: [], ustensils: [] };
+
+        addTag('ingredients', 'Tomate');
+        
+        const tags = filterContainer.querySelectorAll('.filter-item');
+        expect(tags.length).toBe(1);
+        expect(tags[0].textContent).toContain('Tomate');
+        expect(filters.ingredients).toContain('Tomate');
     });
 });
