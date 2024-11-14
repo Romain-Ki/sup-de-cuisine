@@ -20,7 +20,7 @@ Bienvenue sur le projet **Sup de Cuisine**, une application web permettant de d�
 ## Lien de l'application
 
 Vous pouvez accéder à l'application en ligne en cliquant sur le lien suivant :  
-[Sup de Cuisine - Application en ligne](https://romain-ki.github.io/sup-de-cuisine/)
+[Sup de Cuisine - Site en ligne](https://romain-ki.github.io/sup-de-cuisine/)
 
 ## Technologies utilisées
 
