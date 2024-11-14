@@ -29,7 +29,7 @@ function displayRecipes(recipes) {
 
         recetteDiv.innerHTML = `
             <div class="image-recette">
-                <img src="JSON-recipes/${recipe.image}" alt="${recipe.name}">
+                <img src="assets/images/${recipe.image}" alt="${recipe.name}">
             </div>
             <div class="description-recette">
                 <h2 class="nom-recette">${recipe.name}</h2>

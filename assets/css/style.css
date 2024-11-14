@@ -9,7 +9,7 @@
 header {
 
     position: relative;
-    background-image: url("JSON-recipes/back-ground-header.jpg");
+    background-image: url("../images/back-ground-header.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -279,4 +279,108 @@ header::before {
 
     font-size: 24px;
     text-align: center;
+}
+
+/* Styles pour les écrans de 768px de large ou moins */
+@media (max-width: 768px) {
+    
+    /* Réduire la taille du header et recentrer le contenu */
+    header {
+        height: 300px;
+    }
+
+    .title {
+        font-size: 28px; /* Taille de police plus petite pour le titre */
+        padding: 10px;
+    }
+
+    .search-form input {
+        width: 90%; /* Utilise presque toute la largeur de l'écran */
+        padding: 15px;
+    }
+
+    .search-form button {
+        padding: 15px;
+    }
+
+    /* Ajustement des filtres pour les petits écrans */
+    .filtre {
+        flex-direction: column; /* Empile les filtres verticalement */
+        align-items: stretch; /* Les filtres prennent toute la largeur */
+        margin: 20px 10px; /* Marge réduite */
+    }
+
+    .filtre > form {
+        width: 100%; /* Les formulaires de filtre prennent toute la largeur */
+    }
+
+    /* Espacement plus petit pour chaque filtre */
+    .filter-item {
+        font-size: 18px; /* Taille réduite pour les tags de filtre */
+        margin: 5px;
+    }
+
+    /* Conteneur des filtres sélectionnés en ligne */
+    .filtre-select {
+        justify-content: center;
+    }
+
+    /* Ajustement des options dans les filtres déroulants */
+    .dropdown {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    /* Ajustement des cartes de recettes */
+    .recette-panel {
+        margin: 20px 10px;
+        gap: 15px;
+        justify-content: center; /* Centre les éléments sur l’écran */
+    }
+
+    /* Taille réduite pour les cartes de recettes */
+    .recette {
+        width: 100%; /* Prend toute la largeur de l'écran pour chaque carte */
+        height: auto; /* Hauteur automatique pour s'adapter au contenu */
+    }
+
+    /* Réduction de la taille de l'image dans chaque carte */
+    .image-recette {
+        height: 150px; /* Hauteur de l'image ajustée */
+    }
+
+    /* Taille de la description dans les cartes */
+    .description-recette {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Réduction de la taille du nom de la recette */
+    .nom-recette {
+        font-size: 20px;
+        margin: 5px 0;
+    }
+
+    /* Ajustement de la taille des sections et de la description des ingrédients */
+    .recette-nom, .ingredient {
+        font-size: 18px; /* Réduit la taille de police pour les sections */
+    }
+
+    /* Style de la description des ingrédients */
+    .description-ingredient {
+        font-size: 13px;
+    }
+
+    /* Taille de police pour la préparation et les sections internes */
+    .preparation, .description-recette > * {
+        font-size: 13px;
+        margin: 5px 10px; /* Espacement réduit */
+    }
+
+    /* Message d'absence de résultat et nombre de recettes */
+    .number-recette,
+    .no-result {
+        font-size: 18px;
+        text-align: center;
+    }
 }
