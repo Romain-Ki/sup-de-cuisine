@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Importation de la police Baloo 2 pour le style des textes -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lien vers le fichier CSS pour le style général du site -->
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Sup de Cuisine</title>
 </head>
 <body>
+
+    <!-- Section header contenant le titre et la barre de recherche -->
     <header> 
         <div>
             <h1 class="title">Cherchez parmi plus de 1500 recettes du quotidien, simple et généreuse</h1>
@@ -18,6 +22,7 @@
         </div>
     </header>
 
+    <!-- Barre de filtres par ingrédients, appareils, et ustensiles -->
     <div class="filtre">
         <form class="select-form-ingredient">
             <select class="dropdown" name="ingredient-options" id="ingredient-options">
@@ -37,17 +42,22 @@
             </select>
         </form>
 
+        <!-- Affichage dynamique du nombre de recettes trouvées -->
         <p class="number-recette" id="nombre-recettes"></p>
     </div>
 
+    <!-- Conteneur pour afficher les tags de filtres actifs sélectionnés -->
     <div class="filtre-select" id="le-filtre">
-        
     </div>
 
+    <!-- Conteneur principal pour afficher les cartes des recettes -->
     <div class="recette-panel" id="recettePanel">
+    </div>
 
-     </div>
+    <!-- Message d'alerte affiché si aucune recette ne correspond à la recherche -->
     <p class="no-result" id="search-message" style="display: none; color: red;"></p>
-     <script src="assets/js/script.js"></script>
+
+    <!-- Lien vers le script principal du site -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -1,23 +1,23 @@
 // Variables globales
-let globalRecipes = [];  // Stocker toutes les recettes pour le filtrage
+let globalRecipes = [];  // Stocke toutes les recettes pour le filtrage
 let filters = { ingredients: [], appliances: [], ustensils: [] };  // Garde la trace des filtres actifs
-let searchQuery = '';  // Stocker la requête de recherche
+let searchQuery = '';  // Stocke la requête de recherche
 
-// Fonction pour afficher les recettes dans le panel et afficher le message de recherche si aucune recette
+// Fonction pour afficher les recettes dans le panel et afficher un message si aucune recette ne correspond
 function displayRecipes(recipes) {
     const recettePanel = document.getElementById('recettePanel');
     const searchMessage = document.getElementById('search-message');  // Conteneur pour le message de recherche
-    recettePanel.innerHTML = '';  // Vider le panel avant d'ajouter les recettes filtrées
+    recettePanel.innerHTML = '';  // Vide le panel avant d'ajouter les nouvelles recettes
 
-    // Afficher le message si aucune recette ne correspond et que la recherche est d'au moins 3 caractères
+    // Affiche le message si aucune recette ne correspond et que la recherche a au moins 3 caractères
     if (recipes.length === 0 && searchQuery.length >= 3) {
         searchMessage.textContent = `Aucune recette ne contient ‘${searchQuery}’`;
         searchMessage.style.display = 'block';
     } else {
-        searchMessage.style.display = 'none';  // Cacher le message si des recettes sont trouvées
+        searchMessage.style.display = 'none';  // Cache le message si des recettes sont trouvées
     }
 
-    // Afficher les recettes
+    // Affiche chaque recette
     recipes.forEach(recipe => {
         const recetteDiv = document.createElement('div');
         recetteDiv.classList.add('recette');
@@ -36,14 +36,14 @@ function displayRecipes(recipes) {
                 <p class="recette-nom">Recette</p>
                 <p class="preparation">${recipe.description}</p>
                 <p class="ingredient">Ingrédients</p>
-                <ul class="description-ingredient">${ingredientsList}</ul> <!-- Utilisation de <ul> et <li> pour la liste -->
+                <ul class="description-ingredient">${ingredientsList}</ul> <!-- Utilise <ul> et <li> pour la liste d'ingrédients -->
             </div>
         `;
     
         document.getElementById('recettePanel').appendChild(recetteDiv);
     });
 
-    // Afficher le nombre de recettes
+    // Met à jour le nombre de recettes affichées
     const numberOfRecipes = recettePanel.getElementsByClassName('recette').length;
     const nombreRecettesElement = document.getElementById('nombre-recettes');
     nombreRecettesElement.textContent = `${numberOfRecipes} recettes`;
@@ -58,6 +58,7 @@ function loadIngredients(recipes) {
         });
     });
 
+    // Trie et ajoute les ingrédients uniques dans le sélecteur
     const uniqueIngredients = Array.from(ingredientsSet).sort();
     const selectElement = document.getElementById('ingredient-options');
 
@@ -78,6 +79,7 @@ function loadAppliances(recipes) {
         }
     });
 
+    // Trie et ajoute les appareils uniques dans le sélecteur
     const uniqueAppliances = Array.from(appliancesSet).sort();
     const selectElementAppliance = document.getElementById('appliance-options');
 
@@ -98,6 +100,7 @@ function loadUstensils(recipes) {
         });
     });
 
+    // Trie et ajoute les ustensiles uniques dans le sélecteur
     const uniqueUstensils = Array.from(ustensilsSet).sort();
     const selectElementUstensil = document.getElementById('ustensil-options');
 
@@ -140,36 +143,35 @@ function filterRecipes(recipes) {
 
 // Fonction pour mettre à jour les recettes affichées en fonction des filtres actifs
 function updateRecipes() {
-    const filteredRecipes = filterRecipes(globalRecipes); // Filtrer les recettes avec les tags actifs et la recherche
+    const filteredRecipes = filterRecipes(globalRecipes); // Filtre les recettes avec les tags actifs et la recherche
     displayRecipes(filteredRecipes);
 }
 
-// Fonction pour ajouter un tag dans "filtre-select"
+// Fonction pour ajouter un tag dans "filtre-select" et activer le filtrage
 function addTag(category, value) {
     const filterContainer = document.getElementById('le-filtre');
     const filterItem = document.createElement('div');
     filterItem.classList.add('filter-item');
     filterItem.textContent = value.charAt(0).toUpperCase() + value.slice(1);
 
-    // Ajouter un bouton de suppression au tag
+    // Ajoute un bouton de suppression au tag
     const removeButton = document.createElement('button');
     removeButton.textContent = "X";
     removeButton.classList.add('remove-button');
     filterItem.appendChild(removeButton);
     filterContainer.appendChild(filterItem);
 
-    // Ajouter le filtre au tableau des filtres actifs
+    // Ajoute le filtre au tableau des filtres actifs
     filters[category].push(value);
 
-    // Supprimer le tag et mettre à jour les recettes quand on clique sur "X"
+    // Supprime le tag et met à jour les recettes lorsque le bouton "X" est cliqué
     removeButton.addEventListener('click', () => {
-        filters[category] = filters[category].filter(f => f !== value); // Enlever le filtre du tableau
-        filterContainer.removeChild(filterItem); // Enlever le tag de la vue
-        updateRecipes(); // Mettre à jour les recettes
+        filters[category] = filters[category].filter(f => f !== value); // Retire le filtre du tableau
+        filterContainer.removeChild(filterItem); // Enlève le tag visuellement
+        updateRecipes(); // Met à jour les recettes
     });
 
-    // Mettre à jour les recettes
-    updateRecipes();
+    updateRecipes(); // Met à jour les recettes
 }
 
 // Fonction pour configurer les sélecteurs et créer les tags correspondants
@@ -179,7 +181,7 @@ function setupFilterSelectors() {
         if (value && !filters.ingredients.includes(value)) {
             addTag('ingredients', value);
         }
-        event.target.selectedIndex = 0; // Réinitialiser la sélection
+        event.target.selectedIndex = 0;
     });
 
     document.getElementById('appliance-options').addEventListener('change', (event) => {
@@ -187,7 +189,7 @@ function setupFilterSelectors() {
         if (value && !filters.appliances.includes(value)) {
             addTag('appliances', value);
         }
-        event.target.selectedIndex = 0; // Réinitialiser la sélection
+        event.target.selectedIndex = 0;
     });
 
     document.getElementById('ustensil-options').addEventListener('change', (event) => {
@@ -195,17 +197,17 @@ function setupFilterSelectors() {
         if (value && !filters.ustensils.includes(value)) {
             addTag('ustensils', value);
         }
-        event.target.selectedIndex = 0; // Réinitialiser la sélection
+        event.target.selectedIndex = 0;
     });
 }
 
-// Fonction pour configurer la barre de recherche et filtrer les recettes
+// Fonction pour configurer la barre de recherche et activer le filtrage des recettes
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
 
     searchInput.addEventListener('input', () => {
-        searchQuery = searchInput.value.toLowerCase();  // Stocker la recherche active
-        updateRecipes();  // Mettre à jour les recettes en fonction des filtres actifs et de la recherche
+        searchQuery = searchInput.value.toLowerCase();  // Stocke la recherche active
+        updateRecipes();  // Met à jour les recettes en fonction des filtres actifs et de la recherche
     });
 }
 
@@ -213,7 +215,7 @@ function setupSearch() {
 async function loadRecipes() {
     try {
         const response = await fetch('https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json');
-        globalRecipes = await response.json(); // Charger les recettes dans une variable globale
+        globalRecipes = await response.json(); // Charge les recettes dans une variable globale
 
         displayRecipes(globalRecipes);      // Affiche toutes les recettes au départ
         loadIngredients(globalRecipes);     // Charge les ingrédients dans le sélecteur
