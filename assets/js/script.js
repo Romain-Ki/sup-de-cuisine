@@ -231,9 +231,3 @@ async function loadRecipes() {
 // Charger les recettes lorsque la page est prête
 document.addEventListener('DOMContentLoaded', loadRecipes);
 
-// Exporter les fonctions pour les tests
-module.exports = {
-    displayRecipes,
-    filterRecipes,
-    addTag
-};

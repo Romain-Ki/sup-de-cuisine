@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "jsdom": "^25.0.1",
+    "vitest": "^2.1.5"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage"
+  }
+}
